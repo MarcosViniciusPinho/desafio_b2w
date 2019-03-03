@@ -1,4 +1,4 @@
-package com.b2w.starwar.domain.wrapper;
+package com.b2w.starwar.infrastructure.service.wrapper;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

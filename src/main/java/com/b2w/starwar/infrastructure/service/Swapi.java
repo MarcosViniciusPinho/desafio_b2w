@@ -1,4 +1,4 @@
-package com.b2w.starwar.infrastructure.integration;
+package com.b2w.starwar.infrastructure.service;
 
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class Swapi {
 
-    protected static RestTemplate initialiaze() {
+    public static RestTemplate initialiaze() {
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setSSLHostnameVerifier(new NoopHostnameVerifier())
                 .build();

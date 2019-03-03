@@ -1,17 +1,21 @@
-package com.b2w.starwar.infrastructure.integration;
+package com.b2w.starwar.infrastructure.service.impl;
 
-import com.b2w.starwar.domain.wrapper.PlanetaWrapper;
+import com.b2w.starwar.infrastructure.service.PlanetaSwService;
+import com.b2w.starwar.infrastructure.service.Swapi;
+import com.b2w.starwar.infrastructure.service.wrapper.PlanetaWrapper;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Classe criada por mpinho na data 02/03/19
  * E-mail: marcosjava2008@gmail.com
  */
-public class PlanetaSw {
+@Service
+public class PlanetaSwServiceImpl implements PlanetaSwService {
 
     private RestTemplate restTemplate;
 
-    public PlanetaSw() {
+    public PlanetaSwServiceImpl() {
         this.restTemplate = Swapi.initialiaze();
     }
 
