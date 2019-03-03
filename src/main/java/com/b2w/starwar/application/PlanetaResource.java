@@ -2,13 +2,11 @@ package com.b2w.starwar.application;
 
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.service.PlanetaService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -40,4 +38,14 @@ public class PlanetaResource {
         return ResponseEntity.created(uri).body(planetaSalvo);
     }
 
+    /**
+     * Método que exclui um planeta por seu id
+     * @param id id
+     * @return ResponseEntity<Void>
+     */
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable(value = "id") String id){
+        this.service.delete(new ObjectId(id));
+        return ResponseEntity.noContent().build();
+    }
 }

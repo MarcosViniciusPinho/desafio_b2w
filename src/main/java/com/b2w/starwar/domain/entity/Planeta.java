@@ -1,9 +1,10 @@
 package com.b2w.starwar.domain.entity;
 
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,6 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "planetas")
 public class Planeta {
 
+    @JsonIgnore
     @Id
     private ObjectId id;
 
