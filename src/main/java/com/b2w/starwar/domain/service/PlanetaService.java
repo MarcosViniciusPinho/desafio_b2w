@@ -3,6 +3,8 @@ package com.b2w.starwar.domain.service;
 import com.b2w.starwar.domain.entity.Planeta;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 /**
  * Classe criada por mpinho na data 03/03/19
  * E-mail: marcosjava2008@gmail.com
@@ -22,4 +24,9 @@ public interface PlanetaService {
      */
     void delete(ObjectId id);
 
+    /**
+     * Listar todos os planetas
+     * @return List<Planeta>
+     */
+    List<Planeta> findAll();
 }

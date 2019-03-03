@@ -2,6 +2,7 @@ package com.b2w.starwar.application;
 
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.service.PlanetaService;
+import lombok.val;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 /**
  * Classe criada por mpinho na data 03/03/19
@@ -47,5 +49,15 @@ public class PlanetaResource {
     public ResponseEntity<Void> delete(@PathVariable(value = "id") String id){
         this.service.delete(new ObjectId(id));
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Método que lista todos os planetas
+     * @return ResponseEntity<List<Planeta>>
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Planeta>> findAll(){
+        val planetas = this.service.findAll();
+        return ResponseEntity.ok().body(planetas);
     }
 }

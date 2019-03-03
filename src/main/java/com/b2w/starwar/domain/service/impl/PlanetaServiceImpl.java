@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Classe criada por mpinho na data 03/03/19
  * E-mail: marcosjava2008@gmail.com
@@ -27,5 +29,10 @@ public class PlanetaServiceImpl implements PlanetaService {
         Planeta planeta = new Planeta();
         planeta.setId(id);
         this.repository.delete(planeta);
+    }
+
+    @Override
+    public List<Planeta> findAll() {
+        return this.repository.findAll();
     }
 }
