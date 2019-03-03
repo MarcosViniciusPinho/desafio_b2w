@@ -11,4 +11,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PlanetaRepository extends MongoRepository<Planeta, ObjectId> {
+
+    /**
+     * Método que busca um planeta por seu respectivo id ou nome.
+     * @param id id
+     * @param nome nome
+     * @return Planeta
+     */
+    Planeta findByIdOrNome(ObjectId id, String nome);
+
 }

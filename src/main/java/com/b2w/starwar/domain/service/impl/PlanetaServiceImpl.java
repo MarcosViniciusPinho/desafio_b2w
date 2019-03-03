@@ -35,4 +35,9 @@ public class PlanetaServiceImpl implements PlanetaService {
     public List<Planeta> findAll() {
         return this.repository.findAll();
     }
+
+    @Override
+    public Planeta find(ObjectId id, String nome) {
+        return this.repository.findByIdOrNome(id, nome);
+    }
 }

@@ -29,4 +29,12 @@ public interface PlanetaService {
      * @return List<Planeta>
      */
     List<Planeta> findAll();
+
+    /**
+     * Método usado para buscar um planeta a partir de seu id ou nome
+     * @param id id
+     * @param nome nome
+     * @return Planeta
+     */
+    Planeta find(ObjectId id, String nome);
 }
