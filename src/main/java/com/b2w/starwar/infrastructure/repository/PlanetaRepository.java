@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Classe criada por mpinho na data 03/03/19
  * E-mail: marcosjava2008@gmail.com
@@ -18,6 +20,13 @@ public interface PlanetaRepository extends MongoRepository<Planeta, ObjectId> {
      * @param nome nome
      * @return Planeta
      */
-    Planeta findByIdOrNome(ObjectId id, String nome);
+    Optional<Planeta> findByIdOrNome(ObjectId id, String nome);
+
+    /**
+     * Método que busca um planeta a partir de seu nome
+     * @param nome nome do planeta a ser pesquisado
+     * @return Planeta
+     */
+    Planeta findByNome(String nome);
 
 }

@@ -4,6 +4,7 @@ import com.b2w.starwar.domain.entity.Planeta;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe criada por mpinho na data 03/03/19
@@ -36,5 +37,5 @@ public interface PlanetaService {
      * @param nome nome
      * @return Planeta
      */
-    Planeta find(ObjectId id, String nome);
+    Optional<Planeta> find(ObjectId id, String nome);
 }

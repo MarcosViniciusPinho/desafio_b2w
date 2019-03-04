@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe criada por mpinho na data 03/03/19
@@ -65,8 +66,7 @@ public class PlanetaResource {
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Planeta>> findAll(){
-        val planetas = this.service.findAll();
-        return ResponseEntity.ok().body(planetas);
+        return ResponseEntity.ok().body(this.service.findAll());
     }
 
     /**
@@ -76,11 +76,11 @@ public class PlanetaResource {
      * @return ResponseEntity<Planeta>
      */
     @GetMapping(value = "/param", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Planeta> find(@RequestParam(value = "id", required = false) String id,
-                                        @RequestParam(value = "nome", required = false) String nome){
+    public ResponseEntity<Optional<Planeta>> find(@RequestParam(value = "id", required = false) String id,
+                                                 @RequestParam(value = "nome", required = false) String nome){
         val planeta = this.service.find(StringUtils.isNotEmpty(id) ? new ObjectId(id)
                 : new ObjectId(), nome);
-        return planeta != null ? ResponseEntity.ok(planeta) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(planeta);
     }
 
 }
