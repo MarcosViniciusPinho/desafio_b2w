@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 /**
  * Classe criada por mpinho na data 02/03/19
  * E-mail: marcosjava2008@gmail.com
@@ -16,7 +18,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @NoArgsConstructor
 @Document(collection = "planetas")
-public class Planeta {
+public class Planeta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @JsonIgnore
     @Id
@@ -30,4 +34,9 @@ public class Planeta {
 
     private Integer totalDeAparicoesEmFilmes;
 
+    public Planeta(String nome, String clima, String terreno) {
+        this.nome = nome;
+        this.clima = clima;
+        this.terreno = terreno;
+    }
 }
