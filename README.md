@@ -7,6 +7,9 @@ Tecnologias utilizadas no Projeto:
 - RestTemplate
 - Lombok
 - Spring Data
-- MongoDB
+- MongoDB<br /><br />
+
+Teste de Software utilizados:
+- Integration
 
 
