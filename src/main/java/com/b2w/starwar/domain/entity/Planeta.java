@@ -30,6 +30,6 @@ public class Planeta {
 
     private String terreno;
 
-    private Long totalDeAparicoesEmFilmes;
+    private Integer totalDeAparicoesEmFilmes;
 
 }

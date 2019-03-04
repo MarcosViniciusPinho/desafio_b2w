@@ -3,6 +3,7 @@ package com.b2w.starwar.domain.service.impl;
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.infrastructure.repository.PlanetaRepository;
 import com.b2w.starwar.domain.service.PlanetaService;
+import com.b2w.starwar.infrastructure.service.PlanetaSwService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,16 @@ public class PlanetaServiceImpl implements PlanetaService {
     @Autowired
     private PlanetaRepository repository;
 
+    @Autowired
+    private PlanetaSwService service;
+
     @Override
     public Planeta save(Planeta planeta) {
-        return this.repository.save(planeta);
+        Planeta planetaCadastrado = this.repository.save(planeta);
+        planetaCadastrado.setTotalDeAparicoesEmFilmes(
+                this.service.getTotalDeFilmesPorPlaneta(planeta)
+        );
+        return planetaCadastrado;
     }
 
     @Override
@@ -33,11 +41,22 @@ public class PlanetaServiceImpl implements PlanetaService {
 
     @Override
     public List<Planeta> findAll() {
-        return this.repository.findAll();
+        List<Planeta> planetas = this.repository.findAll();
+        planetas.forEach(planeta -> {
+            planeta.setTotalDeAparicoesEmFilmes(
+                    this.service.getTotalDeFilmesPorPlaneta(planeta)
+            );
+        });
+        return planetas;
     }
 
     @Override
     public Planeta find(ObjectId id, String nome) {
-        return this.repository.findByIdOrNome(id, nome);
+        Planeta planeta = this.repository.findByIdOrNome(id, nome);
+        if(planeta != null) {
+            planeta.setTotalDeAparicoesEmFilmes(this.service.getTotalDeFilmesPorPlaneta(planeta));
+        }
+        return planeta;
     }
+
 }
