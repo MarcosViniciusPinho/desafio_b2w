@@ -42,8 +42,8 @@ public class PlanetaResource {
     public ResponseEntity<Planeta> create(@Valid @RequestBody Planeta planeta){
         Planeta planetaSalvo = this.service.save(planeta);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-                .buildAndExpand(planetaSalvo.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/param?nome={nome}")
+                .buildAndExpand(planetaSalvo.getNome()).toUri();
 
         return ResponseEntity.created(uri).body(planetaSalvo);
     }

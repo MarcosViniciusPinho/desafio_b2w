@@ -3,7 +3,6 @@ package com.b2w.starwar.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -15,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"nome", "clima", "terreno", "totalDeAparicoesEmFilmes"})
 @NoArgsConstructor
 @Document(collection = "planetas")
 public class Planeta {

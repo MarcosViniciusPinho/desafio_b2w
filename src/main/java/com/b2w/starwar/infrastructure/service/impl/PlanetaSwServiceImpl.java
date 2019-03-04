@@ -29,15 +29,10 @@ public class PlanetaSwServiceImpl implements PlanetaSwService {
 
     @Override
     public List<PlanetaWrapper> call(Long page) {
-        Optional<Wrapper> wrapper = Optional.of(
-                this.restTemplate.getForObject(
-                        String.format("https://swapi.co/api/planets?page=%d", page), Wrapper.class
-                )
+        Wrapper wrapper = this.restTemplate.getForObject(
+                String.format("https://swapi.co/api/planets?page=%d", page), Wrapper.class
         );
-        if(wrapper.isPresent()) {
-            return wrapper.get().getPlanetaWrappers();
-        }
-        return new ArrayList<>();
+        return wrapper != null ? wrapper.getPlanetaWrappers() : new ArrayList<>();
     }
 
     @Override
