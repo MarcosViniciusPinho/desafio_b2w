@@ -1,6 +1,6 @@
 package com.b2w.starwar.infrastructure.handler;
 
-import com.b2w.starwar.infrastructure.handler.domain.ResponseError;
+import com.b2w.starwar.infrastructure.handler.model.ResponseError;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
 import com.b2w.starwar.infrastructure.handler.exception.UniqueException;
 import org.apache.commons.lang3.exception.ExceptionUtils;

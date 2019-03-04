@@ -1,4 +1,4 @@
-package com.b2w.starwar.infrastructure.handler.domain;
+package com.b2w.starwar.infrastructure.handler.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
