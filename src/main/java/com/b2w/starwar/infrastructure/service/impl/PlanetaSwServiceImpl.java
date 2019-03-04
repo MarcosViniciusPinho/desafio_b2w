@@ -1,12 +1,14 @@
 package com.b2w.starwar.infrastructure.service.impl;
 
 import com.b2w.starwar.domain.entity.Planeta;
+import com.b2w.starwar.infrastructure.StarwarProperty;
 import com.b2w.starwar.infrastructure.service.PlanetaSwService;
 import com.b2w.starwar.infrastructure.service.Swapi;
 import com.b2w.starwar.infrastructure.service.wrapper.PlanetaWrapper;
 import com.b2w.starwar.infrastructure.service.wrapper.Wrapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,14 +25,19 @@ public class PlanetaSwServiceImpl implements PlanetaSwService {
 
     private RestTemplate restTemplate;
 
+    @Autowired
+    private StarwarProperty property;
+
     public PlanetaSwServiceImpl() {
         this.restTemplate = Swapi.initialiaze();
     }
 
     @Override
     public List<PlanetaWrapper> call(Long page) {
+        StringBuilder sb = new StringBuilder().append(this.property.getEnviroment())
+                .append("/planets?page=%d");
         Wrapper wrapper = this.restTemplate.getForObject(
-                String.format("https://swapi.co/api/planets?page=%d", page), Wrapper.class
+                String.format(sb.toString(), page), Wrapper.class
         );
         return wrapper != null ? wrapper.getPlanetaWrappers() : new ArrayList<>();
     }
