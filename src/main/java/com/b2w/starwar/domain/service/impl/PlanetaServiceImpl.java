@@ -6,6 +6,7 @@ import com.b2w.starwar.infrastructure.handler.exception.UniqueException;
 import com.b2w.starwar.infrastructure.repository.PlanetaRepository;
 import com.b2w.starwar.domain.service.PlanetaService;
 import com.b2w.starwar.infrastructure.service.PlanetaSwService;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +45,13 @@ public class PlanetaServiceImpl implements PlanetaService {
     }
 
     @Override
-    public List<Planeta> findAll() {
-        List<Planeta> planetas = this.repository.findAll();
-        planetas.forEach(planeta -> {
+    public Optional<List<Planeta>> findAll(String nome) {
+        Optional<List<Planeta>> planetas = this.repository.findAllByNomeIsLike(StringUtils.isEmpty(nome) ? "" : nome);
+        planetas.ifPresent(it -> it.forEach(planeta -> {
             planeta.setTotalDeAparicoesEmFilmes(
                     this.service.getTotalDeFilmesPorPlaneta(planeta)
             );
-        });
+        }));
         return planetas;
     }
 

@@ -61,12 +61,12 @@ public class PlanetaResource {
     }
 
     /**
-     * Método que lista todos os planetas
+     * Método que lista todos os planetas, caso deseje filtrar um planeta basta passar seu nome.
      * @return ResponseEntity<List<Planeta>>
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Planeta>> findAll(){
-        return ResponseEntity.ok().body(this.service.findAll());
+    public ResponseEntity<Optional<List<Planeta>>> findAll(@RequestParam(value = "nome", required = false) String nome){
+        return ResponseEntity.ok().body(this.service.findAll(nome));
     }
 
     /**

@@ -26,10 +26,10 @@ public interface PlanetaService {
     void delete(ObjectId id);
 
     /**
-     * Listar todos os planetas
-     * @return List<Planeta>
+     * Listar todos os planetas, porém caso passe o filtro nome irá retornar apenas informações relativas ao mesmo.
+     * @return Optional<List<Planeta>>
      */
-    List<Planeta> findAll();
+    Optional<List<Planeta>> findAll(String nome);
 
     /**
      * Método usado para buscar um planeta a partir de seu id ou nome
