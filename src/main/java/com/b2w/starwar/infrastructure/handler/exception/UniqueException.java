@@ -2,6 +2,10 @@ package com.b2w.starwar.infrastructure.handler.exception;
 
 import lombok.Getter;
 
+/**
+ * Classe criada por mpinho
+ * E-mail: marcosjava2008@gmail.com
+ */
 @Getter
 public class UniqueException extends RuntimeException {
 

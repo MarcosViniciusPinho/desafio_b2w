@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Classe criada por mpinho na data 03/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 @Service

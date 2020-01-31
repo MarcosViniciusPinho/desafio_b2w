@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Classe criada por mpinho na data 03/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 @Getter

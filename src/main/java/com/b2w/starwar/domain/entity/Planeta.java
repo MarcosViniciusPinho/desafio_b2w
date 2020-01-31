@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 /**
- * Classe criada por mpinho na data 02/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 @Getter

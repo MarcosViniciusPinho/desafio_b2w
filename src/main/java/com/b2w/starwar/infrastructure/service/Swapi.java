@@ -7,7 +7,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Classe criada por mpinho na data 02/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 public class Swapi {

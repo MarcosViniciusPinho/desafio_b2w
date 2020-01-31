@@ -18,6 +18,10 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Classe criada por mpinho
+ * E-mail: marcosjava2008@gmail.com
+ */
 @ControllerAdvice
 public class StarwarHandler extends ResponseEntityExceptionHandler {
 

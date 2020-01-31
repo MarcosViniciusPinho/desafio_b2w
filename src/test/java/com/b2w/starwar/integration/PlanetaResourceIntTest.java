@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Classe criada por mpinho na data 04/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 @RunWith(SpringRunner.class)

@@ -6,7 +6,7 @@ import com.b2w.starwar.infrastructure.service.wrapper.PlanetaWrapper;
 import java.util.List;
 
 /**
- * Classe criada por mpinho na data 03/03/19
+ * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
 public interface PlanetaSwService {
