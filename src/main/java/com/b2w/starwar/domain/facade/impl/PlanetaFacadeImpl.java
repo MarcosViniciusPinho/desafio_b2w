@@ -4,6 +4,7 @@ import com.b2w.starwar.domain.dto.PlanetaDto;
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.facade.PlanetaFacade;
 import com.b2w.starwar.domain.service.PlanetaService;
+import com.b2w.starwar.infrastructure.service.PlanetaSwService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,15 @@ public class PlanetaFacadeImpl implements PlanetaFacade {
     @Autowired
     private PlanetaService service;
 
+    @Autowired
+    private PlanetaSwService planetaSwService;
+
     @Override
     public PlanetaDto save(PlanetaDto dto) {
         Planeta planeta = this.service.save(new Planeta(dto.getNome(), dto.getClima(), dto.getTerreno()));
         return PlanetaDto.builder().id(planeta.getId().toHexString()).nome(planeta.getNome())
                 .clima(planeta.getClima()).terreno(planeta.getTerreno())
-                .totalDeAparicoesEmFilmes(planeta.getTotalDeAparicoesEmFilmes())
+                .totalDeAparicoesEmFilmes(this.planetaSwService.getTotalDeFilmesPorPlaneta(planeta))
                 .build();
     }
 
@@ -42,7 +46,7 @@ public class PlanetaFacadeImpl implements PlanetaFacade {
             List<PlanetaDto> dtos = new ArrayList<>();
             planetas.get().forEach(it -> dtos.add(PlanetaDto.builder().id(it.getId().toHexString())
                     .nome(it.getNome()).clima(it.getClima()).terreno(it.getTerreno())
-                    .totalDeAparicoesEmFilmes(it.getTotalDeAparicoesEmFilmes())
+                    .totalDeAparicoesEmFilmes(this.planetaSwService.getTotalDeFilmesPorPlaneta(it))
                     .build()));
             return Optional.of(dtos);
         }
@@ -57,7 +61,7 @@ public class PlanetaFacadeImpl implements PlanetaFacade {
             return Optional.of(PlanetaDto.builder().id(planetaOther.getId().toHexString())
                     .nome(planetaOther.getNome()).clima(planetaOther.getClima())
                     .terreno(planetaOther.getTerreno())
-                    .totalDeAparicoesEmFilmes(planetaOther.getTotalDeAparicoesEmFilmes())
+                    .totalDeAparicoesEmFilmes(this.planetaSwService.getTotalDeFilmesPorPlaneta(planetaOther))
                     .build());
         }
         return Optional.of(PlanetaDto.builder().build());

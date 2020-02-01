@@ -32,8 +32,6 @@ public class Planeta implements Serializable {
 
     private String terreno;
 
-    private Integer totalDeAparicoesEmFilmes;
-
     public Planeta(String nome, String clima, String terreno) {
         this.nome = nome;
         this.clima = clima;
