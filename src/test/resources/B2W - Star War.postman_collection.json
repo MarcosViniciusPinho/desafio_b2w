@@ -1,45 +1,23 @@
 {
-	"id": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
+	"id": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
 	"name": "B2W - Star War",
 	"description": "",
 	"order": [
-		"92642148-cc74-677f-c11b-4c677d213420",
-		"4735dd2e-d052-1066-9f38-efdf790b15a9",
-		"19bf96ba-6db3-8a44-9729-89f17194c616",
-		"822982bf-424e-7386-f0c4-b07c00fefe82",
-		"febe8677-3d14-69d0-dcd7-54b2b5854652"
+		"8871d572-ce87-cf3e-0b23-ad26cc05e55c",
+		"5162ad34-6c0a-8c24-860e-318a606aaaf6",
+		"ea079c98-b41c-58ff-dee5-0ae7f3b7960c",
+		"8349cdbb-d3a2-d372-dbdb-7336f5b6a1ab",
+		"74905a4f-f689-1be3-fb50-747fb4678321"
 	],
 	"folders": [],
 	"folders_order": [],
 	"timestamp": 1551725198649,
 	"owner": "1749718",
 	"public": false,
+	"hasRequests": true,
 	"requests": [
 		{
-			"id": "19bf96ba-6db3-8a44-9729-89f17194c616",
-			"headers": "",
-			"headerData": [],
-			"url": "http://localhost:8081/api/planetas",
-			"queryParams": [],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"preRequestScript": null,
-			"method": "GET",
-			"collectionId": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
-			"data": null,
-			"dataMode": "params",
-			"name": "Listar todos os Planetas",
-			"description": "http://localhost:8081/api/planetas",
-			"descriptionFormat": "html",
-			"time": 1551725296280,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {}
-		},
-		{
-			"id": "4735dd2e-d052-1066-9f38-efdf790b15a9",
+			"id": "5162ad34-6c0a-8c24-860e-318a606aaaf6",
 			"headers": "Content-Type: application/json\n",
 			"headerData": [
 				{
@@ -49,124 +27,134 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:8081/api/planetas/5c7d502cb3e05160003e3fb8",
+			"url": "http://localhost:8081/api/planetas/5e33c6209498c6136c157f3d",
 			"queryParams": [],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "DELETE",
-			"collectionId": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
 			"data": null,
 			"dataMode": "params",
-			"name": "Excluir um Planeta",
-			"description": "http://localhost:8081/api/planetas/<id>",
-			"descriptionFormat": "html",
-			"time": 1551725255571,
 			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {}
-		},
-		{
-			"id": "822982bf-424e-7386-f0c4-b07c00fefe82",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "http://localhost:8081/api/planetas/param?nome=Ojom",
-			"queryParams": [
-				{
-					"key": "nome",
-					"value": "Ojom",
-					"equals": true,
-					"description": "",
-					"enabled": true
-				}
-			],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"preRequestScript": null,
-			"method": "GET",
-			"collectionId": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
-			"data": null,
-			"dataMode": "params",
-			"name": "Pesquisar por nome do Planeta",
-			"description": "http://localhost:8081/api/planetas/param?nome=<nome>",
-			"descriptionFormat": "html",
-			"time": 1551725319232,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {}
-		},
-		{
-			"id": "92642148-cc74-677f-c11b-4c677d213420",
-			"headers": "Content-Type: application/json\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "http://localhost:8081/api/planetas",
-			"queryParams": [],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"preRequestScript": null,
-			"method": "POST",
-			"collectionId": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
-			"data": [],
-			"dataMode": "raw",
-			"name": "Salvar um Planeta",
-			"description": "http://localhost:8081/api/planetas",
-			"descriptionFormat": "html",
-			"time": 1551725220699,
-			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"rawModeData": "{\n\t\"nome\": \"Naboo\",\n\t\"clima\": \"temperate\",\n\t\"terreno\": \"grassy hills, swamps, forests, mountains\"\n}"
+			"time": 1580536677228,
+			"name": "Excluir um Planeta",
+			"description": "http://localhost:8081/api/planetas/<id>",
+			"collectionId": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
+			"responses": []
 		},
 		{
-			"id": "febe8677-3d14-69d0-dcd7-54b2b5854652",
+			"id": "74905a4f-f689-1be3-fb50-747fb4678321",
 			"headers": "",
 			"headerData": [],
-			"url": "http://localhost:8081/api/planetas/param?id=5c7d74d1b3e0510170721836",
+			"url": "http://localhost:8081/api/planetas/5e3391aa9498c60c4c735164",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1580537094156,
+			"name": "Buscar um Planeta",
+			"description": "http://localhost:8081/api/planetas/param?id=<id>",
+			"collectionId": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
+			"responses": []
+		},
+		{
+			"id": "8349cdbb-d3a2-d372-dbdb-7336f5b6a1ab",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/api/planetas?nome=Naboo",
 			"queryParams": [
 				{
-					"key": "id",
-					"value": "5c7d74d1b3e0510170721836",
+					"key": "nome",
+					"value": "Naboo",
 					"equals": true,
 					"description": "",
 					"enabled": true
 				}
 			],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "GET",
-			"collectionId": "b5ec6a6a-b086-3f67-3a16-f54b21de5eee",
 			"data": null,
 			"dataMode": "params",
-			"name": "Pesquisar por id do Planeta",
-			"description": "http://localhost:8081/api/planetas/param?id=<id>",
-			"descriptionFormat": "html",
-			"time": 1551725961528,
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
-			"helperAttributes": {}
+			"helperAttributes": {},
+			"time": 1580537091656,
+			"name": "Listar todos os Planetas por nome",
+			"description": "http://localhost:8081/api/planetas/param?nome=<nome>",
+			"collectionId": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
+			"responses": []
+		},
+		{
+			"id": "8871d572-ce87-cf3e-0b23-ad26cc05e55c",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/api/planetas",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1580536673926,
+			"name": "Salvar um Planeta",
+			"description": "http://localhost:8081/api/planetas",
+			"collectionId": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
+			"responses": [],
+			"rawModeData": "{\n\t\"nome\": \"Naboo\",\n\t\"clima\": \"temperate\",\n\t\"terreno\": \"grassy hills, swamps, forests, mountains\"\n}"
+		},
+		{
+			"id": "ea079c98-b41c-58ff-dee5-0ae7f3b7960c",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8081/api/planetas",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1580537088395,
+			"name": "Listar todos os Planetas",
+			"description": "http://localhost:8081/api/planetas",
+			"collectionId": "b6dda74b-0f0a-199d-baa7-3226ba6edf9c",
+			"responses": []
 		}
 	]
 }
