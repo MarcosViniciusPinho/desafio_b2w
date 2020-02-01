@@ -2,7 +2,7 @@ package com.b2w.starwar.infrastructure.service.impl;
 
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.infrastructure.StarwarProperty;
-import com.b2w.starwar.infrastructure.service.PlanetaSwService;
+import com.b2w.starwar.infrastructure.service.PlanetSwapiService;
 import com.b2w.starwar.infrastructure.service.Swapi;
 import com.b2w.starwar.infrastructure.service.wrapper.PlanetaWrapper;
 import com.b2w.starwar.infrastructure.service.wrapper.Wrapper;
@@ -21,14 +21,14 @@ import java.util.Optional;
  * E-mail: marcosjava2008@gmail.com
  */
 @Service
-public class PlanetaSwServiceImpl implements PlanetaSwService {
+public class PlanetSwapiServiceImpl implements PlanetSwapiService {
 
     private RestTemplate restTemplate;
 
     @Autowired
     private StarwarProperty property;
 
-    public PlanetaSwServiceImpl() {
+    public PlanetSwapiServiceImpl() {
         this.restTemplate = Swapi.initialiaze();
     }
 

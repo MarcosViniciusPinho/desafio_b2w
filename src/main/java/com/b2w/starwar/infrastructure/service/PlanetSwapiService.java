@@ -9,7 +9,7 @@ import java.util.List;
  * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
-public interface PlanetaSwService {
+public interface PlanetSwapiService {
 
     /**
      * Método responsável por buscar todos os planetas na API https://swapi.co/api/planets
