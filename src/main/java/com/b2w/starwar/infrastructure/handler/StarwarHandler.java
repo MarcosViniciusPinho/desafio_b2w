@@ -2,7 +2,6 @@ package com.b2w.starwar.infrastructure.handler;
 
 import com.b2w.starwar.infrastructure.handler.model.ResponseError;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
-import com.b2w.starwar.infrastructure.handler.exception.UniqueException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,11 +27,6 @@ public class StarwarHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ RecurseNotFoundException.class })
     public ResponseEntity<Object> handleRecurseNotFoundException(RecurseNotFoundException ex, WebRequest request) {
         return this.throwException(ex, ex.getMensagemClient(), request, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler({ UniqueException.class })
-    public ResponseEntity<Object> handleUniqueException(UniqueException ex, WebRequest request) {
-        return this.throwException(ex, ex.getMensagemClient(), request, HttpStatus.EXPECTATION_FAILED);
     }
 
     @ExceptionHandler({ UnknownHostException.class, SocketException.class })
