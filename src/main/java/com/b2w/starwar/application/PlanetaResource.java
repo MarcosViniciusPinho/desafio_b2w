@@ -2,23 +2,12 @@ package com.b2w.starwar.application;
 
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.service.PlanetaService;
-import lombok.val;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +29,7 @@ public class PlanetaResource {
      * @return ResponseEntity<Planeta>
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Planeta> create(@Valid @RequestBody Planeta planeta){
+    public ResponseEntity<Planeta> create(@RequestBody Planeta planeta){
         Planeta planetaSalvo = this.service.save(planeta);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
@@ -56,7 +45,7 @@ public class PlanetaResource {
      */
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") String id){
-        this.service.delete(new ObjectId(id));
+        this.service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -70,17 +59,13 @@ public class PlanetaResource {
     }
 
     /**
-     * Método que busca um planeta por seu id ou por seu nome
+     * Método que busca um planeta por seu id
      * @param  id id
-     * @param  nome nome
      * @return ResponseEntity<Planeta>
      */
-    @GetMapping(value = "/param", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Planeta>> find(@RequestParam(value = "id", required = false) String id,
-                                                 @RequestParam(value = "nome", required = false) String nome){
-        val planeta = this.service.find(StringUtils.isNotEmpty(id) ? new ObjectId(id)
-                : new ObjectId(), nome);
-        return ResponseEntity.ok(planeta);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Optional<Planeta>> findById(@PathVariable(value = "id") String id){
+        return ResponseEntity.ok().body(this.service.findById(id));
     }
 
 }

@@ -1,10 +1,10 @@
 package com.b2w.starwar.domain.service.impl;
 
 import com.b2w.starwar.domain.entity.Planeta;
+import com.b2w.starwar.domain.service.PlanetaService;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
 import com.b2w.starwar.infrastructure.handler.exception.UniqueException;
 import com.b2w.starwar.infrastructure.repository.PlanetaRepository;
-import com.b2w.starwar.domain.service.PlanetaService;
 import com.b2w.starwar.infrastructure.service.PlanetaSwService;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -38,8 +38,8 @@ public class PlanetaServiceImpl implements PlanetaService {
     }
 
     @Override
-    public void delete(ObjectId id) {
-        Optional<Planeta> planeta = this.repository.findById(id);
+    public void delete(String id) {
+        Optional<Planeta> planeta = this.repository.findById(new ObjectId(id));
         this.validarRecurso(planeta);
         this.repository.delete(planeta.get());
     }
@@ -56,12 +56,11 @@ public class PlanetaServiceImpl implements PlanetaService {
     }
 
     @Override
-    public Optional<Planeta> find(ObjectId id, String nome) {
-        Optional<Planeta> planeta = this.repository.findByIdOrNome(id, nome);
-        this.validarRecurso(planeta);
-        planeta.get().setTotalDeAparicoesEmFilmes(
-                this.service.getTotalDeFilmesPorPlaneta(planeta.get())
-        );
+    public Optional<Planeta> findById(String id) {
+        Optional<Planeta> planeta = this.repository.findById(new ObjectId(id));
+        planeta.ifPresent(it -> it.setTotalDeAparicoesEmFilmes(
+                this.service.getTotalDeFilmesPorPlaneta(it)
+        ));
         return planeta;
     }
 
