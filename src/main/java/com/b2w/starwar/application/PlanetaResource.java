@@ -1,7 +1,7 @@
 package com.b2w.starwar.application;
 
-import com.b2w.starwar.domain.entity.Planeta;
-import com.b2w.starwar.domain.service.PlanetaService;
+import com.b2w.starwar.domain.dto.PlanetaDto;
+import com.b2w.starwar.domain.facade.PlanetaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +21,16 @@ import java.util.Optional;
 public class PlanetaResource {
 
     @Autowired
-    private PlanetaService service;
+    private PlanetaFacade facade;
 
     /**
      * Método que adiciona uma planeta
-     * @param planeta planeta
+     * @param dto dto
      * @return ResponseEntity<Planeta>
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Planeta> create(@RequestBody Planeta planeta){
-        Planeta planetaSalvo = this.service.save(planeta);
+    public ResponseEntity<PlanetaDto> create(@RequestBody PlanetaDto dto){
+        PlanetaDto planetaSalvo = this.facade.save(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(planetaSalvo.getId()).toUri();
@@ -45,7 +45,7 @@ public class PlanetaResource {
      */
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") String id){
-        this.service.delete(id);
+        this.facade.delete(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -54,8 +54,8 @@ public class PlanetaResource {
      * @return ResponseEntity<List<Planeta>>
      */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<List<Planeta>>> findAll(@RequestParam(value = "nome", required = false) String nome){
-        return ResponseEntity.ok().body(this.service.findAll(nome));
+    public ResponseEntity<Optional<List<PlanetaDto>>> findAll(@RequestParam(value = "nome", required = false) String nome){
+        return ResponseEntity.ok().body(this.facade.findAll(nome));
     }
 
     /**
@@ -64,8 +64,8 @@ public class PlanetaResource {
      * @return ResponseEntity<Planeta>
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Planeta>> findById(@PathVariable(value = "id") String id){
-        return ResponseEntity.ok().body(this.service.findById(id));
+    public ResponseEntity<Optional<PlanetaDto>> findById(@PathVariable(value = "id") String id){
+        return ResponseEntity.ok().body(this.facade.findById(id));
     }
 
 }
