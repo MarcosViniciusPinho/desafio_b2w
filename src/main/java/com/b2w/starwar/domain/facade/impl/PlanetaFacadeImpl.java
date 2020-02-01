@@ -60,6 +60,6 @@ public class PlanetaFacadeImpl implements PlanetaFacade {
                     .totalDeAparicoesEmFilmes(planetaOther.getTotalDeAparicoesEmFilmes())
                     .build());
         }
-        return Optional.empty();
+        return Optional.of(PlanetaDto.builder().build());
     }
 }
