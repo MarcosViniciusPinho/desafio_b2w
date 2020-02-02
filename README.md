@@ -10,6 +10,7 @@ Tecnologias utilizadas no Projeto:
 - MongoDB<br /><br />
 
 Teste de Software utilizados:
-- Integration
+- Integração
+- Unidade
 
 
