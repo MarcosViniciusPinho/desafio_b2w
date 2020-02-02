@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ResponseError {
 
-    private String erro;
-    private String exception;
+    private Integer codigo;
+    private String mensagem;
 
 }

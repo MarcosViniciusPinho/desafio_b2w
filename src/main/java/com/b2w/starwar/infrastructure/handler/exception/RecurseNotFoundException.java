@@ -9,11 +9,13 @@ import lombok.Getter;
 @Getter
 public class RecurseNotFoundException extends RuntimeException {
 
-    private final String mensagemClient;
+    private final Integer codigo;
+    private final String mensagem;
 
-    public RecurseNotFoundException(String mensagemClient, String mensagemException) {
-        super(mensagemException);
-        this.mensagemClient = mensagemClient;
+    public RecurseNotFoundException(Integer codigo, String mensagem) {
+        super("Recurso informado não existe");
+        this.mensagem = mensagem;
+        this.codigo = codigo;
     }
 
 }

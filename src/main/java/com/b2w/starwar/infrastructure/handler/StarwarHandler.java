@@ -1,8 +1,8 @@
 package com.b2w.starwar.infrastructure.handler;
 
+import com.b2w.starwar.Constante;
 import com.b2w.starwar.infrastructure.handler.model.ResponseError;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,18 +26,19 @@ public class StarwarHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ RecurseNotFoundException.class })
     public ResponseEntity<Object> handleRecurseNotFoundException(RecurseNotFoundException ex, WebRequest request) {
-        return this.throwException(ex, ex.getMensagemClient(), request, HttpStatus.NOT_FOUND);
+        return this.throwException(ex, ex.getCodigo(), ex.getMensagem(), request, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({ UnknownHostException.class, SocketException.class })
     public ResponseEntity<Object> handleUnknownHostException(IOException ex, WebRequest request) {
-        String mensageToClient = "Verifique sua conexão com a internet e tente novamente, caso esteja conectado favor comunicar ao administrador do sistema!";
+        String mensagem = "Verifique sua conexão com a internet e tente novamente, caso esteja conectado favor comunicar ao administrador do sistema!";
         return this.throwException(ex instanceof UnknownHostException ? (UnknownHostException) ex : (SocketException) ex,
-                mensageToClient, request, HttpStatus.SERVICE_UNAVAILABLE);
+                Constante.ErrorCode.INDISPONIBILIDADE, mensagem, request, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    private ResponseEntity<Object> throwException(Exception ex, String message, WebRequest request, HttpStatus status) {
-        List<ResponseError> erros = Arrays.asList(new ResponseError(message, ExceptionUtils.getRootCauseMessage(ex)));
+    private ResponseEntity<Object> throwException(Exception ex, Integer codigo, String message, WebRequest request, HttpStatus status) {
+        List<ResponseError> erros = Collections.singletonList(new ResponseError(codigo, message));
+        //TODO botar no log do servidor ExceptionUtils.getRootCauseMessage(ex)
         return handleExceptionInternal(ex, erros, new HttpHeaders(), status, request);
     }
 

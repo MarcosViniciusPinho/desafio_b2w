@@ -1,5 +1,6 @@
 package com.b2w.starwar.domain.service.impl;
 
+import com.b2w.starwar.Constante;
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.service.PlanetaService;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
@@ -46,8 +47,8 @@ public class PlanetaServiceImpl implements PlanetaService {
 
     private void validate(Optional<Planeta> planeta) {
         if(!planeta.isPresent()) {
-            throw new RecurseNotFoundException("Não foi(foram) encontrado(s) planeta(s) com os dados informados",
-                    "A API do desafio não retornou nenhuma informação!");
+            throw new RecurseNotFoundException(Constante.ErrorCode.RECURSO_PLANETA_NAO_ENCONTRADO,
+                    "Planeta informado não existe");
         }
     }
 
