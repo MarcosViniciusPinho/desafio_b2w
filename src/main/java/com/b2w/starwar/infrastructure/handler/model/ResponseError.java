@@ -2,6 +2,7 @@ package com.b2w.starwar.infrastructure.handler.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * Classe criada por mpinho
@@ -9,6 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+@ToString
 public class ResponseError {
 
     private Integer codigo;

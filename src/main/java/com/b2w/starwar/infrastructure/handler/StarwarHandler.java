@@ -3,6 +3,8 @@ package com.b2w.starwar.infrastructure.handler;
 import com.b2w.starwar.Constante;
 import com.b2w.starwar.infrastructure.handler.model.ResponseError;
 import com.b2w.starwar.infrastructure.handler.exception.RecurseNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.util.List;
  * Classe criada por mpinho
  * E-mail: marcosjava2008@gmail.com
  */
+@Slf4j
 @ControllerAdvice
 public class StarwarHandler extends ResponseEntityExceptionHandler {
 
@@ -38,7 +41,7 @@ public class StarwarHandler extends ResponseEntityExceptionHandler {
 
     private ResponseEntity<Object> throwException(Exception ex, Integer codigo, String message, WebRequest request, HttpStatus status) {
         List<ResponseError> erros = Collections.singletonList(new ResponseError(codigo, message));
-        //TODO botar no log do servidor ExceptionUtils.getRootCauseMessage(ex)
+        log.debug(new ResponseError(codigo, ExceptionUtils.getRootCauseMessage(ex)).toString());
         return handleExceptionInternal(ex, erros, new HttpHeaders(), status, request);
     }
 
