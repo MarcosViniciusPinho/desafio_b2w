@@ -1,8 +1,10 @@
 package com.b2w.starwar.integration;
 
+import com.b2w.starwar.domain.dto.PlanetaDto;
 import com.b2w.starwar.domain.entity.Planeta;
 import com.b2w.starwar.domain.service.PlanetaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Objects;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -55,10 +59,12 @@ public class PlanetaResourceIntTest extends IntegrationSource {
                 .andExpect(jsonPath("$.nome").value("Aldebaran"))
                 .andExpect(jsonPath("$.clima").value("temperate"))
                 .andExpect(jsonPath("$.terreno").value("desert"))
-                .andExpect(jsonPath("$.totalDeAparicoesEmFilmes").isEmpty())
                 .andReturn().getResponse();
 
-        Assert.assertTrue(response.getHeader("Location").contains("nome=Aldebaran"));
+        Gson gson = new Gson();
+        PlanetaDto dto = gson.fromJson(response.getContentAsString(), PlanetaDto.class);
+
+        Assert.assertTrue(Objects.requireNonNull(response.getHeader("Location")).contains(dto.getId()));
     }
 
     @Test
@@ -74,22 +80,10 @@ public class PlanetaResourceIntTest extends IntegrationSource {
                 .andExpect(jsonPath("$.totalDeAparicoesEmFilmes").value(4))
                 .andReturn().getResponse();
 
-        Assert.assertTrue(response.getHeader("Location").contains("nome=Coruscant"));
-    }
+        Gson gson = new Gson();
+        PlanetaDto dto = gson.fromJson(response.getContentAsString(), PlanetaDto.class);
 
-    @Test
-    public void deveDarErroAoTentarSalvarUmPlanetaExistente() throws Exception {
-        this.service.save(new Planeta("Coruscant", "temperate", "cityscape, mountains"));
-
-        this.mockMvc.perform(post("/planetas")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new Planeta("Coruscant", "temperate", "cityscape, mountains"))))
-                .andExpect(status().isExpectationFailed())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].erro").value("Já existe um planeta cadastrado com este nome"))
-                .andExpect(jsonPath("$[0].exception").value("UniqueException: Planeta já existente na base de dados!"))
-                .andReturn().getResponse();
-
+        Assert.assertTrue(Objects.requireNonNull(response.getHeader("Location")).contains(dto.getId()));
     }
 
     @Test
@@ -120,7 +114,6 @@ public class PlanetaResourceIntTest extends IntegrationSource {
                 .andExpect(jsonPath("$[0].nome").value("Aldebaran"))
                 .andExpect(jsonPath("$[0].clima").value("temperate"))
                 .andExpect(jsonPath("$[0].terreno").value("desert"))
-                .andExpect(jsonPath("$[0].totalDeAparicoesEmFilmes").isEmpty())
                 .andExpect(jsonPath("$[1].nome").value("Coruscant"))
                 .andExpect(jsonPath("$[1].clima").value("temperate"))
                 .andExpect(jsonPath("$[1].terreno").value("cityscape, mountains"))
@@ -132,7 +125,7 @@ public class PlanetaResourceIntTest extends IntegrationSource {
     public void devePesquisarUmPlanetaComSeuRespectivoIdAndQueExistaNaApiDeDesafio() throws Exception{
         Planeta planeta = this.service.save(new Planeta("Coruscant", "temperate", "cityscape, mountains"));
 
-        this.mockMvc.perform(get("/planetas/param?id=" + planeta.getId())
+        this.mockMvc.perform(get("/planetas/" + planeta.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -146,61 +139,49 @@ public class PlanetaResourceIntTest extends IntegrationSource {
     public void devePesquisarUmPlanetaComSeuRespectivoIdAndQueNaoExistaNaApiDeDesafio() throws Exception{
         Planeta planeta = this.service.save(new Planeta("Aldebaran", "temperate", "desert"));
 
-        this.mockMvc.perform(get("/planetas/param?id=" + planeta.getId())
+        this.mockMvc.perform(get("/planetas/" + planeta.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.nome").value("Aldebaran"))
                 .andExpect(jsonPath("$.clima").value("temperate"))
-                .andExpect(jsonPath("$.terreno").value("desert"))
-                .andExpect(jsonPath("$.totalDeAparicoesEmFilmes").isEmpty());
-    }
-
-    @Test
-    public void deveDarErroAoTentarPesquisarUmPlanetaInexistentePorSeuRespectivoId() throws Exception{
-        this.mockMvc.perform(get("/planetas/param?id=5c7daed6b3e051404133f2aa")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].erro").value("Não foi(foram) encontrado(s) planeta(s) com os dados informados"))
-                .andExpect(jsonPath("$[0].exception").value("RecurseNotFoundException: A API do desafio não retornou nenhuma informação!"));
+                .andExpect(jsonPath("$.terreno").value("desert"));
     }
 
     @Test
     public void devePesquisarUmPlanetaComSeuRespectivoNomeAndQueExistaNaApiDeDesafio() throws Exception{
         Planeta planeta = this.service.save(new Planeta("Coruscant", "temperate", "cityscape, mountains"));
 
-        this.mockMvc.perform(get("/planetas/param?nome=" + planeta.getNome())
+        this.mockMvc.perform(get("/planetas?nome=" + planeta.getNome())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.nome").value("Coruscant"))
-                .andExpect(jsonPath("$.clima").value("temperate"))
-                .andExpect(jsonPath("$.terreno").value("cityscape, mountains"))
-                .andExpect(jsonPath("$.totalDeAparicoesEmFilmes").value(4));
+                .andExpect(jsonPath("$[0].nome").value("Coruscant"))
+                .andExpect(jsonPath("$[0].clima").value("temperate"))
+                .andExpect(jsonPath("$[0].terreno").value("cityscape, mountains"))
+                .andExpect(jsonPath("$[0].totalDeAparicoesEmFilmes").value(4));
     }
 
     @Test
     public void devePesquisarUmPlanetaComSeuRespectivoNomeAndQueNaoExistaNaApiDeDesafio() throws Exception{
         Planeta planeta = this.service.save(new Planeta("Aldebaran", "temperate", "desert"));
 
-        this.mockMvc.perform(get("/planetas/param?nome=" + planeta.getNome())
+        this.mockMvc.perform(get("/planetas?nome=" + planeta.getNome())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.nome").value("Aldebaran"))
-                .andExpect(jsonPath("$.clima").value("temperate"))
-                .andExpect(jsonPath("$.terreno").value("desert"))
-                .andExpect(jsonPath("$.totalDeAparicoesEmFilmes").isEmpty());
+                .andExpect(jsonPath("$[0].nome").value("Aldebaran"))
+                .andExpect(jsonPath("$[0].clima").value("temperate"))
+                .andExpect(jsonPath("$[0].terreno").value("desert"));
     }
 
     @Test
-    public void deveDarErroAoTentarPesquisarUmPlanetaInexistentePorSeuRespectivoNome() throws Exception{
-        this.mockMvc.perform(get("/planetas/param?nome=XPTO")
+    public void devePesquisarUmPlanetaInexistentePorSeuRespectivoNome() throws Exception{
+        this.mockMvc.perform(get("/planetas?nome=XPTO")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].erro").value("Não foi(foram) encontrado(s) planeta(s) com os dados informados"))
-                .andExpect(jsonPath("$[0].exception").value("RecurseNotFoundException: A API do desafio não retornou nenhuma informação!"));
+                .andExpect(jsonPath("$").isEmpty());
     }
+
 }
